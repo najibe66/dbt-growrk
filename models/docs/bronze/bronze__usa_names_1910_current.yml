@@ -1,0 +1,17 @@
+version: 2
+models:
+  - name: bronze__usa_names_1910_current
+    description: Table with no transformation that retrieves data from BigQuery external project.
+    tests:
+      - dbt_utils.equal_rowcount:
+          compare_model: ref('raw__usa_names_1910_current')
+    columns:
+      - name: year
+        tests:
+          - not_null  
+      - name: state
+        tests:
+          - not_null 
+      - name: name
+        tests:
+          - not_null

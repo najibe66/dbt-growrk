@@ -1,10 +1,10 @@
 {{
     config(
         schema='bronze',
-        materialized='table',
+        materialized='incremental',
         partition_by={'field': '_internal_sequence', 'data_type': 'timestamp', 'granularity': 'day'},
         cluster_by=['name', 'gender', 'state'],
-        tags=['raw']
+        tags=['bronze']
     )
 }}
 
@@ -16,9 +16,11 @@ SELECT
     year,
     name,
     number,
-    _internal_sequence  AS sequence,
     CURRENT_TIMESTAMP() AS _internal_sequence
-FROM {{ ref('raw__usa_1910_current') }}
+FROM {{ source('bigquery_public_data', 'usa_1910_current') }}
 {% if is_incremental() %}
-    WHERE _internal_sequence > (SELECT MAX(_internal_sequence) FROM {{ this }})
+WHERE 
+    year >= (SELECT MIN(year) FROM {{ this }}) --scan the entirely year column
+    AND CURRENT_TIMESTAMP() >= (SELECT MAX(_internal_sequence) FROM {{ this }}) --capture only rows that year field has update
 {% endif %}
+

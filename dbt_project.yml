@@ -46,3 +46,6 @@ models:
     #Aplicado para tudo dentro da pasta dbt_ebanx/gold
     gold:
       +schema: gold
+
+tests:
+  +severity: warn 

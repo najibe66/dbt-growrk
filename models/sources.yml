@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: bigquery_public_data
+    database: bigquery-public-data
+    schema: usa_names
+    tables:
+      - name: usa_1910_current

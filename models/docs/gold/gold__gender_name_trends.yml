@@ -1,0 +1,28 @@
+version: 2
+
+models:
+  - name: gold__gender_name_trends
+    description: Aggregated counts of male and female names by year and name.
+    tests:
+      - dbt_utils.expression_is_true:
+          expression: "male_name_count >= 0"
+      - dbt_utils.expression_is_true:
+          expression: "female_name_count >= 0"   
+    columns:
+      - name: year
+        description: Year of occurrence for the name.
+        tests:
+          - not_null  
+      - name: name
+        description: Name of the individual.
+        tests:
+          - not_null  
+      - name: male_name_count
+        description: Count of male occurrences of the name.
+        tests:
+          - not_null  
+      - name: female_name_count
+        description: Count of female occurrences of the name.
+        tests:
+          - not_null  
+      

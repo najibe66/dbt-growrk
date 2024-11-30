@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: gold__name_eduardo_trends_over_years
+    description: Analyzes the trends of the name 'Eduardo' over the years, including year-over-year change.
+    tests:
+      - dbt_utils.expression_is_true:
+          expression: "name_count - previous_year_count = year_over_year_change"
+    columns:
+      - name: year
+        description: "The year in which the count of the name 'Eduardo' was recorded."
+        tests:
+          - unique
+          - not_null
+      - name: name_count
+        description: "The count of the name 'Eduardo' in each year."
+        tests:
+          - not_null
+      - name: previous_year_count
+        description: "The count of the name 'Eduardo' in the previous year."
+        tests:
+          - not_null
+      - name: year_over_year_change
+        description: "The year-over-year change in the count of the name 'Eduardo'."
+        tests:
+          - not_null

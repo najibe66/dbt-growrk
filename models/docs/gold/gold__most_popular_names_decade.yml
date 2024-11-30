@@ -1,0 +1,23 @@
+version: 2
+
+models:
+  - name: gold__most_popular_names_decade
+    description: Aggregated table showing the top 5 most popular names for each decade.
+    tests:
+      - dbt_utils.expression_is_true:
+          expression: "name_count >= 0"
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns: ['name', 'decade', 'name_count']
+    columns:
+      - name: name
+        description: The name of the person.
+        tests:
+          - not_null
+      - name: decade
+        description: The decade during which the name was popular.
+        tests:
+          - not_null
+      - name: name_count
+        description: The count of occurrences of the name within the decade.
+        tests:
+          - not_null

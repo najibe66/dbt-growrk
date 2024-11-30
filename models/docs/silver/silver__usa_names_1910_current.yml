@@ -7,11 +7,16 @@ models:
           compare_model: ref('bronze__usa_names_1910_current')
     columns:
       - name: year
+        description: "The year the name data was recorded (1910)."
         tests:
-          - not_null  
+          - not_null
+          
       - name: state
+        description: "The U.S. state where the name was recorded."
         tests:
-          - not_null 
+          - not_null
+          
       - name: name
+        description: "The name that was recorded for the year and state."
         tests:
           - not_null

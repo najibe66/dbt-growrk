@@ -4,6 +4,7 @@ models:
   - name: gold__gender_name_trends
     description: Aggregated counts of male and female names by year and name.
     tests:
+
       - dbt_utils.expression_is_true:
           expression: "male_name_count >= 0"
       - dbt_utils.expression_is_true:
